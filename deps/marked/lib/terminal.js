@@ -81,7 +81,7 @@ exports.fmt = {
     var line = (function () { 
       return '   ' + new Array(width - 2).join('⎽');
     }());
-    return line;
+    return line + '\n';
   },
 
   heading: function (depth, text) {
