@@ -27,7 +27,7 @@ exports.inlineFmt = {
     if (href.indexOf && href.indexOf('mailto') !== -1) {
       href = href.slice(7);
     }
-    if (href == text) {
+    if (href == text || href[0] == '#') {
       return text.underline;
     } else {
       return text.underline + ' (' + href + ')';
