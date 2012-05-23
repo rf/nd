@@ -28,6 +28,17 @@ function list (path) {
   }
 }
 
+function listModules () {
+  console.log("Available modules:".bold);
+  find.list(function (err, data) {
+    if (err) return app.log.error(err);
+
+    _.each(data, function (info, name) {
+      console.log(name);
+    });
+  });
+}
+
 function view (module, args) {
   async.waterfall([
     function (callback)       { find.root(module, callback); },
@@ -55,11 +66,15 @@ app.init(function (err) {
 
   if (app.argv.l) {
     // list mode
+    if (args.length > 0 || module) {
+      list();
+    } else {
+      listModules()
+    }
   } else {
     // view
     if (!module) {
-      app.log.error('you must specify a module name, like this');
-      app.log.info('nd [modulename]');
+      listModules()
     } else {
       view(module, args);
     }
