@@ -3,9 +3,10 @@
   "version": "0.0.0",
   "dependencies": {
     "flatiron": "0.1.x",
-    "marked": "0.2.x",
     "colors": "0.6.x",
-    "wordwrap": "0.0.x"
+    "wordwrap": "0.0.x",
+    "underscore.string": "2.2.x",
+    "npm": "1.1.21"
   },
   "devDependencies": {
     "cli-easy": "0.1.x",
