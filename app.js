@@ -19,19 +19,34 @@ app.use(flatiron.plugins.cli, {
   }
 });
 
-function list (path) {
-  try {
-    var contents = fs.readdirSync(path);
-    console.dir(contents);
-  } catch (e) {
-    app.log.error("directory not found");
-  }
+function list (module, args) {
+  async.waterfall([
+    function (callback)       { find.root(module, callback); },
+    function (root, callback) { find.docDir(root, callback); },
+  ], function (err, data) {
+    if (err) {
+      app.log.error(err);
+      return;
+    }
+
+    var dir = path.join(data[0], path.join.apply(null, args));
+
+    fs.readdir(dir, function (err, files) {
+      if (err) return app.log.error(err);
+
+      _.each(files, function (file) {
+        console.log(file);
+      });
+    });
+  });
 }
 
 function listModules () {
   console.log("Available modules:".bold);
   find.list(function (err, data) {
     if (err) return app.log.error(err);
+
+    if (!data || !data[0]) return console.log("no packages found");
 
     _.each(data, function (info, name) {
       console.log(name);
@@ -67,7 +82,7 @@ app.init(function (err) {
   if (app.argv.l) {
     // list mode
     if (args.length > 0 || module) {
-      list();
+      list(module, args);
     } else {
       listModules()
     }
