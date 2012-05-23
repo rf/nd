@@ -76,10 +76,14 @@ function fixWhitespace (body) {
   return body;
 }
 
+function colorizeLines (body, c) {
+  return body.split('\n').map(function (item) { return item[c]; }).join('\n');
+}
+
 exports.fmt = {
   hr: function () { 
     var line = (function () { 
-      return '   ' + new Array(width - 2).join('⎽');
+      return '   ' + new Array(width - 2).join(process.platform == "win32" ? "-":"⎽");
     }());
     return line + '\n\n';
   },
@@ -94,8 +98,10 @@ exports.fmt = {
   },
 
   code: function (lang, text) {
-    text = indent(text).split('\n').map(function (item) { return item.grey; }).join('\n');
-    return text + '\n\n';
+    // we do have to colorize twice here because after indenting some new lines
+    // may have been made so we'll have to colorize those lines as well
+    text = indent(colorizeLines(text, 'grey')); 
+    return colorizeLines(text, 'grey') + '\n\n';
   },
 
   blockquote: function (body) {
