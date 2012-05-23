@@ -1,6 +1,6 @@
 {
   "description": "a documentation viewer for node",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "preferGlobal": true,
   "homepage": "https://github.com/russfrank/nd",
   "dependencies": {
