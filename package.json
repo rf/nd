@@ -1,0 +1,22 @@
+{
+  "description": "node documentation viewer",
+  "version": "0.0.0",
+  "dependencies": {
+    "flatiron": "0.1.x",
+    "marked": "0.2.x",
+    "colors": "0.6.x",
+    "wordwrap": "0.0.x"
+  },
+  "devDependencies": {
+    "cli-easy": "0.1.x",
+    "vows": "0.6.x"
+  },
+  "scripts": {
+    "test": "vows --spec",
+    "start": "node app.js"
+  },
+  "bin": {
+    "nd": "./bin/nd"
+  },
+  "name": "nd"
+}
