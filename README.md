@@ -1,7 +1,5 @@
 # nd
 
-_experimental and unreleased_
-
 _a documentation viewer for node.js_
 
 <img src="https://github.com/russfrank/nd/raw/master/shot.png" />
@@ -23,7 +21,9 @@ out of these directories.
 
 For example, if we type
 
-`nd npm cli`
+```
+$ nd npm cli
+```
 
 We will get `npm/doc/cli/index.md`. So, if additional arguments (besides the
 module name) are provided, we try to find a file which is more specific:
@@ -48,7 +48,14 @@ To use:
 $ nd modulename
 ```
 
-Note that `nd` searches for modules within the current directory.
+Note that `nd` searches for modules from within the current directory.
+You can also type simply
+
+```
+$ nd
+```
+
+to get a list of modules within reach.
 
 ## Future
 
