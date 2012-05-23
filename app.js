@@ -34,6 +34,10 @@ function list (module, args) {
     fs.readdir(dir, function (err, files) {
       if (err) return app.log.error(err.message);
 
+      if (files.length == 0) {
+        return app.log.error('No packages found!');
+      }
+
       _.each(files, function (file) {
         console.log(file);
       });
