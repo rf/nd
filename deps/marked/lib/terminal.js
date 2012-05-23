@@ -94,8 +94,8 @@ exports.fmt = {
   },
 
   code: function (lang, text) {
-    text = text.split('\n').map(function (item) { return item.grey; }).join('\n');
-    return indent(text).grey + '\n\n';
+    text = indent(text).split('\n').map(function (item) { return item.grey; }).join('\n');
+    return text + '\n\n';
   },
 
   blockquote: function (body) {
