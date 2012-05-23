@@ -32,7 +32,7 @@ function list (module, args) {
     var dir = path.join(data[0], path.join.apply(null, args));
 
     fs.readdir(dir, function (err, files) {
-      if (err) return app.log.error(err);
+      if (err) return app.log.error(err.message);
 
       _.each(files, function (file) {
         console.log(file);
@@ -44,9 +44,7 @@ function list (module, args) {
 function listModules () {
   console.log("Available modules:".bold);
   find.list(function (err, data) {
-    if (err) return app.log.error(err);
-
-    if (!data || !data[0]) return console.log("no packages found");
+    if (err) return app.log.error(err.message);
 
     _.each(data, function (info, name) {
       console.log(name);
