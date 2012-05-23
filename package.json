@@ -1,5 +1,5 @@
 {
-  "description": "node documentation viewer",
+  "description": "a documentation viewer for node",
   "version": "0.0.0",
   "dependencies": {
     "flatiron": "0.1.x",
@@ -20,5 +20,6 @@
   "bin": {
     "nd": "./bin/nd"
   },
-  "name": "nd"
+  "name": "nd",
+  "author": "Russ Frank <me@russfrank.us"
 }
