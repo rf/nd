@@ -27,9 +27,28 @@ For example, if we type
 
 We will get `npm/doc/cli/index.md`. So, if additional arguments (besides the
 module name) are provided, we try to find a file which is more specific:
-we'll look for `module/arg1/arg2/index.md`, `module/arg1/arg2.md`, and
+we'll look for `module/arg1/arg2/index.md`, `module/arg1/arg2/arg2.md`, and
 `module/arg1/arg2.md`.  This allows us to be flexible about the organization
 of documentation within modules.
+
+## Usage
+
+To install:
+
+```
+$ sudo npm install -g nd
+```
+
+Note that you may not need `sudo` if you installed `node` via a virtual
+environment manager such as [nvm](https://github.com/creationix/nvm).
+
+To use:
+
+```
+$ nd modulename
+```
+
+Note that `nd` searches for modules within the current directory.
 
 ## Future
 
