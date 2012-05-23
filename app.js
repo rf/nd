@@ -64,10 +64,12 @@ function view (module, args) {
     }
 
     var marked = require('./deps/marked').setOptions({gfm: true, terminal: true});
-    var moar = require('moar');
+    var moar = require('moar')({nowrap: true});
 
     moar.write('\n' + marked.parse(data));
     moar.end();
+
+    moar.on('done', function () { process.exit(0); });
   });
 }
 
