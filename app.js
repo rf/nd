@@ -5,6 +5,7 @@ var _ = require('underscore');
 var app = flatiron.app;
 var find = require('./lib/find');
 var async = require('async');
+var npm = require('npm');
 
 app.config.file({ file: path.join(__dirname, 'config', 'config.json') });
 
@@ -45,13 +46,19 @@ function list (module, args) {
   });
 }
 
+function markdisp (data) {
+  var marked = require('./deps/marked').setOptions({gfm: true, terminal: true});
+  var moar = require('moar')({nowrap: true});
+  moar.write('\n' + marked.parse(data));
+  moar.end();
+  moar.on('done', function () { process.exit(0); });
+}
+
 function listModules () {
   console.log("Available modules:".bold);
-  find.list(function (err, data) {
-    if (err) return app.log.error(err.message);
-
-    _.each(data, function (info, name) {
-      console.log(name);
+  npm.load({quiet: true, loglevel: 'silent'}, function (err, npm) {
+    npm.commands.ls([], false, function (err, data) {
+      if (err) return app.log.error(err);
     });
   });
 }
@@ -66,14 +73,8 @@ function view (module, args) {
       app.log.error(err);
       return;
     }
-
-    var marked = require('./deps/marked').setOptions({gfm: true, terminal: true});
-    var moar = require('moar')({nowrap: true});
-
-    moar.write('\n' + marked.parse(data));
-    moar.end();
-
-    moar.on('done', function () { process.exit(0); });
+    
+    markdisp(data);
   });
 }
 
@@ -88,14 +89,24 @@ app.init(function (err) {
     if (args.length > 0 || module) {
       list(module, args);
     } else {
-      listModules()
+      listModules();
     }
   } else {
     // view
     if (!module) {
-      listModules()
+      listModules();
     } else {
-      view(module, args);
+      var file = path.join(process.cwd(), module);
+      path.exists(file, function (exists) {
+        if (exists) {
+          fs.readFile(file, 'utf8', function (err, data) {
+            if (err) return app.log.error(err);
+            markdisp(data);
+          });
+        } else {
+          view(module, args);
+        }
+      });
     }
   }
 });
