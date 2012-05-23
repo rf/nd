@@ -42,8 +42,10 @@ function view (module, args) {
     var marked = require('./deps/marked').setOptions({gfm: true, terminal: true});
     var moar = require('moar');
 
-    moar.write('\n' + marked.parse(data));
-    moar.end();
+    try {
+      moar.write('\n' + marked.parse(data));
+      moar.end();
+    } catch (e) {}
   });
 }
 

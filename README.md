@@ -12,9 +12,9 @@ it displays markdown documents in your terminal.  Dissimilarly to *mad*, nd
 is written in javascript.  
 
 By writing this software in javascript, we benefit
-from the existing `require()` circuitry.  This means that most packages in
-`npm`, despite not having a `doc` directory full of markdown files, have some
-useful information available in *nd*.  Nearly every package at least has a
+from the existing `require()` circuitry.  This means that there is a large
+volume of useful documentation available, despite the fact that very few packages
+have a `doc` or `docs` folder.  Nearly every package at least has a
 `README.md`; *nd* will read this.
 
 If a `doc` or `docs` directory is present, or if there is a docs directory
