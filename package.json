@@ -6,7 +6,8 @@
     "colors": "0.6.x",
     "wordwrap": "0.0.x",
     "underscore.string": "2.2.x",
-    "npm": "1.1.21"
+    "npm": "1.1.21",
+    "moar": "0.0.x"
   },
   "devDependencies": {
     "cli-easy": "0.1.x",
