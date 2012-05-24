@@ -11,6 +11,7 @@
     "wordwrap": "0.0.x",
     "underscore.string": "2.2.x",
     "npm": "1.1.21",
+    "request": "2.9.x",
     "moar": "0.0.x"
   },
   "devDependencies": {

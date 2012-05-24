@@ -6,6 +6,7 @@ var app = flatiron.app;
 var find = require('./lib/find');
 var async = require('async');
 var npm = require('npm');
+var request = require('request');
 var moar;
 
 app.config.file({ file: path.join(__dirname, 'config', 'config.json') });
@@ -115,6 +116,12 @@ app.init(function (err) {
 
       process.stdin.on('end', function () {
         markdisp(data);
+      });
+    }
+
+    else if (/^https?:\/\//.test(module)) {
+      request(module, function (error, response, body) {
+        markdisp(body);
       });
     }
 
