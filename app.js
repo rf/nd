@@ -11,16 +11,7 @@ var moar;
 
 app.config.file({ file: path.join(__dirname, 'config', 'config.json') });
 
-app.use(flatiron.plugins.cli, {
-  source: path.join(__dirname, 'lib', 'commands'),
-  usage: 'Empty Flatiron Application, please fill out commands',
-  argv: {
-    l: {
-      description: 'list',
-      boolean: true
-    }
-  }
-});
+app.use(flatiron.plugins.cli);
 
 function list (module, args) {
   async.waterfall([
@@ -83,9 +74,13 @@ function view (module, args) {
   });
 }
 
-app.init(function (err) {
-  if (err) return app.log.error(err);
+app.router.on(/https?:\/\//, function () {
+  request(module, function (error, response, body) {
+    markdisp(body);
+  });
+});
 
+app.router.notfound = function () {
   var args = app.argv._;
   var module = args.shift();
 
@@ -123,13 +118,6 @@ app.init(function (err) {
     // process.stdin.isTTY above are enough to make the process hang without
     // pausing stdin
 
-    else if (/^https?:\/\//.test(module)) {
-      process.stdin.pause(); 
-      request(module, function (error, response, body) {
-        markdisp(body);
-      });
-    }
-
     else if (!module) {
       process.stdin.pause();
       // no module name provided, just give a list of modules
@@ -158,5 +146,10 @@ app.init(function (err) {
       });
     }
   }
+};
 
+npm.load({loglevel: 'silent'}, function(err, npm) {
+  console.log('npm init');
+  if (err) app.log.error(err);
+  else app.start();
 });
