@@ -64,6 +64,7 @@ function listModules () {
   npm.load({quiet: true, loglevel: 'silent'}, function (err, npm) {
     npm.commands.ls([], false, function (err, data) {
       if (err) return app.log.error(err);
+      process.exit(0);
     });
   });
 }
