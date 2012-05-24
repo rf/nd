@@ -64,7 +64,6 @@ function listModules () {
   npm.load({quiet: true, loglevel: 'silent'}, function (err, npm) {
     npm.commands.ls([], false, function (err, data) {
       if (err) return app.log.error(err);
-      process.exit(0);
     });
   });
 }
@@ -120,18 +119,25 @@ app.init(function (err) {
       });
     }
 
+    // the process.stdin.pauses below are because the call to 
+    // process.stdin.isTTY above are enough to make the process hang without
+    // pausing stdin
+
     else if (/^https?:\/\//.test(module)) {
+      process.stdin.pause(); 
       request(module, function (error, response, body) {
         markdisp(body);
       });
     }
 
     else if (!module) {
+      process.stdin.pause();
       // no module name provided, just give a list of modules
       listModules();
     }
 
     else {
+      process.stdin.pause();
       // we have some arguments.. check to see if they're a filename
       var file = path.join(process.cwd(), module);
       path.exists(file, function (exists) {
@@ -152,4 +158,5 @@ app.init(function (err) {
       });
     }
   }
+
 });
