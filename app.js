@@ -11,7 +11,7 @@ var moar;
 
 app.config.file({ file: path.join(__dirname, 'config', 'config.json') });
 
-app.use(flatiron.plugins.cli);
+app.use(flatiron.plugins.cli, {dir: __dirname, usage: []});
 
 function list (module, args) {
   async.waterfall([
@@ -74,12 +74,6 @@ function view (module, args) {
   });
 }
 
-app.router.on(/https?:\/\//, function () {
-  request(module, function (error, response, body) {
-    markdisp(body);
-  });
-});
-
 app.router.notfound = function () {
   var args = app.argv._;
   var module = args.shift();
@@ -122,6 +116,13 @@ app.router.notfound = function () {
       process.stdin.pause();
       // no module name provided, just give a list of modules
       listModules();
+    }
+
+    else if (/^https?:\/\//.test(module)) {
+      process.stdin.pause();
+      request(module, function (error, response, body) {
+        markdisp(body);
+      });
     }
 
     else {
