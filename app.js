@@ -52,10 +52,10 @@ function markdisp (data) {
 
 function listModules () {
   console.log("Available modules:".bold);
-  npm.load({quiet: true, loglevel: 'silent'}, function (err, npm) {
-    npm.commands.ls([], false, function (err, data) {
-      if (err) return app.log.error(err);
-    });
+  npm.dir = process.cwd();
+  npm.config.set('global', false);
+  npm.commands.ls([], false, function (err, data) {
+    if (err) return app.log.error(err);
   });
 }
 
@@ -148,8 +148,7 @@ app.router.notfound = function () {
   }
 };
 
-npm.load({loglevel: 'silent'}, function(err, npm) {
-  console.log('npm init');
+npm.load({global: true, loglevel: 'silent'}, function(err) {
   if (err) app.log.error(err);
   else app.start();
 });
