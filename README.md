@@ -48,15 +48,19 @@ To use:
 $ nd modulename
 ```
 
-Note that `nd` searches for modules from within the current directory.
+`nd` searches for modules from within the current directory. If it can't find
+the module you're looking for in the current directory, it will search for
+modules installed globally with `npm -g`.
+
+
 You can also type simply
 
 ```
 $ nd
 ```
 
-to get a list of modules within reach. You can run `nd` with the relative
-path to a markdown file as an argument and `nd` will read it, or pipe it some stuff:
+to get a list of modules in the current directory.. You can run `nd` with the relative
+path to a markdown file as an argument and `nd` will read it, or you can pipe it some stuff:
 
 ```
 $ nd README.md
