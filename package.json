@@ -15,11 +15,10 @@
     "moar": "0.0.x"
   },
   "devDependencies": {
-    "cli-easy": "0.1.x",
-    "vows": "0.6.x"
+    "mocha": "1.0.x"
   },
   "scripts": {
-    "test": "vows --spec",
+    "test": "mocha -R spec -u tdd test/*-test.js",
     "start": "node app.js"
   },
   "bin": {
