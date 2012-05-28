@@ -10,7 +10,8 @@ try {
   ].join('\n'));
 }
 
-var width = process.stdout.getWindowSize()[0];
+var width = process.stdout.getWindowSize && process.stdout.getWindowSize()[0];
+if (!width) width = 90;
 width = Math.floor(0.85 * width);
 var wrap = wordwrap(3, width);
 var indent = wordwrap(9, width);
