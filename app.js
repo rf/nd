@@ -76,13 +76,15 @@ function view (module, args) {
 
 app.cmd('node *', function (page) {
   var url = 'https://raw.github.com/joyent/node/master/doc/api/'+page+'.markdown';
-  request(url, function (error, response, body) {
+  request(url, function (error, res, body) {
+    if (error || res.statusCode == 404) return app.log.error('error retrieving page');
     markdisp(body);
   });
 });
 
 app.cmd('https?://*', function () {
   request(module, function (error, response, body) {
+    if (error || res.statusCode == 404) return app.log.error('error retrieving page');
     markdisp(body);
   });
 });
