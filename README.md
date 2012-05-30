@@ -67,6 +67,13 @@ $ nd README.md
 $ curl https://github.com/russfrank/nd/raw/master/README.md | nd
 ```
 
+`nd` can also grab core docs, though, I should note that it always takes them
+straight out of *master*, which might not be what you want:
+
+```
+$ nd node child_process
+```
+
 You can also just straight up give it urls, it'll figure that shit out.
 
 ```
