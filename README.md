@@ -1,13 +1,14 @@
 # nd
 
-_a documentation viewer for node.js_
+_a documentation viewer for npm_
 
 <img src="https://github.com/russfrank/nd/raw/master/shot.png" />
 
-`nd` is a documentation viewer for node.  Similar to 
+`nd` is a documentation viewer for npm packages.  Similar to 
 [mad(1)](http://tjholowaychuk.com/post/21100445420/going-mad-1),
 it displays markdown documents in your terminal.  Dissimilarly to *mad*, nd
-is written in javascript.  
+is written in javascript, and reads documentation out of npm module directories,
+not out of its own repository of pages.
 
 By writing this software in javascript, we benefit
 from the existing `require()` circuitry.  This means that there is a large
@@ -80,12 +81,19 @@ You can also just straight up give it urls, it'll figure that shit out.
 $ nd https://raw.github.com/joyent/node/master/doc/api/child_process.markdown
 ```
 
+Also, it works on Windows, since everybody knows that Windows users love to
+read docs in their terminal:
+
+<img src="https://github.com/russfrank/nd/raw/master/windows-shot.png" />
+
 ## Future
 
 More ideas:
 
 1. Pydoc like web server
 2. Docco view of source files (markdown comments on left, source on right) in terminal
+3. picture-tube for images
+4. command line completion
 
 ## License
 
