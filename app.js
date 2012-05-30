@@ -74,6 +74,19 @@ function view (module, args) {
   });
 }
 
+app.cmd('node *', function (page) {
+  var url = 'https://raw.github.com/joyent/node/master/doc/api/'+page+'.markdown';
+  request(url, function (error, response, body) {
+    markdisp(body);
+  });
+});
+
+app.cmd('https?://*', function () {
+  request(module, function (error, response, body) {
+    markdisp(body);
+  });
+});
+
 app.router.notfound = function () {
   var args = app.argv._;
   var module = args.shift();
@@ -116,13 +129,6 @@ app.router.notfound = function () {
       process.stdin.pause();
       // no module name provided, just give a list of modules
       listModules();
-    }
-
-    else if (/^https?:\/\//.test(module)) {
-      process.stdin.pause();
-      request(module, function (error, response, body) {
-        markdisp(body);
-      });
     }
 
     else {
