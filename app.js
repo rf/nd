@@ -11,7 +11,9 @@ var moar;
 
 app.config.file({ file: path.join(__dirname, 'config', 'config.json') });
 
-app.use(flatiron.plugins.cli, {dir: __dirname, usage: []});
+app.use(flatiron.plugins.cli, {dir: __dirname, usage: [], argv: {
+  l: {boolean: true}
+}});
 
 function list (module, args) {
   async.waterfall([
