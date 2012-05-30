@@ -82,13 +82,6 @@ app.cmd('node *', function (page) {
   });
 });
 
-app.cmd('https?://*', function () {
-  request(module, function (error, response, body) {
-    if (error || res.statusCode == 404) return app.log.error('error retrieving page');
-    markdisp(body);
-  });
-});
-
 app.router.notfound = function () {
   var args = app.argv._;
   var module = args.shift();
@@ -131,6 +124,14 @@ app.router.notfound = function () {
       process.stdin.pause();
       // no module name provided, just give a list of modules
       listModules();
+    }
+
+    else if (/^https?:\/\//.test(module)) {
+      process.stdin.pause();
+      request(module, function (error, res, body) {
+        if (error || res.statusCode == 404) return app.log.error('error retrieving page');
+        markdisp(body);
+      });
     }
 
     else {
