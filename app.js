@@ -9,6 +9,9 @@ var npm = require('npm');
 var request = require('request');
 var moar;
 
+if (fs.existsSync) path.existsSync = fs.existsSync;
+if (fs.exists) path.exists = fs.exists;
+
 app.config.file({ file: path.join(__dirname, 'config', 'config.json') });
 
 app.use(flatiron.plugins.cli, {dir: __dirname, usage: [], argv: {
